@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="id">
+<head>
+ 	<title>Aceh Maps</title>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png')}}">
+	
+	<!-- for index -->
+	<meta name="description" content="Maps for Aceh area, everything we can found there, and orientate to people what want to visit" />
+	<meta name="author" content="Muhammad Firdaus, fird0s">
+	<meta name="keywords" content="Aceh Maps, Maps Aceh, Aceh, Aceh Location">
+	
+	<!-- Leflet config -->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+ 	<!--[if lte IE 8]>
+     		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+     		<link rel="stylesheet" href="static/css/font-awesome-ie7.min.css" />
+ 	<![endif]-->
+ 	
+ 	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+
+        <!--End Leaflet config-->
+    	
+    	<!--FONT AWESOME/ICON SETTING -->
+    	<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}" />
+    	<link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet.awesome-markers.css')}}" />
+    	<script src="{{ url_for('static', filename='js/leaflet.awesome-markers.js')}}"></script>
+    	
+</head>
+<body>
+
+<!--HEADER-->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+   <div class="container">
+    <a class="brand" href="/">BANDA MAPS </a>
+      <form class="navbar-form pull-left">
+        <input type="text" class="span6" placeholder="cari lokasi">
+        <button class="btn btn-success" type="submit">
+         <i class="icon-search icon-white"></i>
+        </button>
+      </form>
+    <ul class="nav" style="margin-left: 10px;">
+      <li class="active"><a href="{{ url_for('index') }}"><b><u>Home</u></b></a></li>	
+      <li><a href="{{ url_for('about') }}"><b><u>About</u></b></a></li>
+      <li><a href="{{ url_for('account') }}"><b><u>Account</u></b></a></li>
+    </ul>
+   </div>  
+  </div>
+</div>
+
+<!--MAPS -->
+{% block content %}
+<div id="map"></div>     
+{% endblock %}
+
+
+
+<!--LEAFLET CONFIG -->
+<script type="text/javascript"
+      		src="{{ url_for('static', filename='js/leaflet-config.js')}}">
+</script>
+
+
+
+
+</body>
+</html>

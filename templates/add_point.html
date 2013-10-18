@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html lang="id">
+<head>
+	<title>Add Point | Aceh Maps</title>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png')}}">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	
+	<!-- for index -->
+	<meta name="description" content="Maps for Aceh area, everything we can found there, and orientate to people what want to visit" />
+	<meta name="author" content="Muhammad Firdaus, fird0s">
+	<meta name="keywords" content="Aceh Maps, Maps Aceh, Aceh, Aceh Location">
+	
+	
+	<!-- Leflet config -->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+ 	<!--[if lte IE 8]>
+     		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+     		<link rel="stylesheet" href="static/css/font-awesome-ie7.min.css" />
+ 	<![endif]-->
+ 	
+ 	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+
+        <!--End Leaflet config-->
+    	
+    	<!--FONT AWESOME/ICON SETTING -->
+    	<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}" />
+    	
+    	
+	
+	
+</head>
+<body>
+
+<!--HEADER-->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+  <div class="container">
+    <a class="brand" href="/">BANDA MAPS</a>
+      <form class="navbar-form pull-left">
+        <input type="text" class="span6" placeholder="cari lokasi">
+        <button class="btn btn-success" type="submit">
+         <i class="icon-search icon-white"></i>
+        </button>
+      </form>
+    <ul class="nav" style="margin-left: 10px;">
+      <li><a href="{{ url_for('index') }}"><b><u>Home</u></b></a></li>	
+      <li><a href="{{ url_for('about') }}"><b><u>About</u></b></a></li>
+      <li class="active"><a href="{{ url_for('account') }}"><b><u>Account</u></b></a></li>
+    </ul>
+   </div> 
+  </div>
+</div>
+<!--END HEADER-->
+
+<!--START CONTENT -->
+<body>
+<div id="wrap"><br><br>
+    
+      <div class="container">
+  		<div class="row"><br><br>
+		 	<div class="span3">
+		 		<div class="well" style="max-width: 340px; padding: 13px 0;">
+		 		<ul class="nav nav-list">
+				
+					<li class="nav-header">Manage Account</li>
+					<li><a href="{{ url_for('register')}}"><i class="icon-user"></i>Sing Up</a></li>
+					<li><a href="{{ url_for('singin')}}"><i class="icon-share-alt"></i>Sing In</a></li>
+					
+				  
+				</ul><br>
+				
+				<ul class="nav nav-list">
+					<li class="divider"></li>
+					<li class="nav-header">Maps</li>
+					<li class="active"><a href="{{ url_for('add_point')}}"><i class="icon-map-marker"></i> Add Point</a></li>
+					<li><a href="index"><i class="icon-tags"></i> Make Direction</a></li>
+					<li><a href="{{ url_for('history')}}"><i class="icon-folder-open"></i> History</a></li>
+					
+				  
+				</ul><br>
+				
+					
+				<ul class="nav nav-list">
+					<li class="divider"></li>
+					<li class="nav-header">Help</li>
+					<li><a href="index"><i class="icon-lightbulb"></i>Help Centre</a></li>
+					<li><a href="index"><i class="icon-th-list"></i>Documentation</a></li>
+				  
+				</ul>
+				
+				</div>
+		 	</div>
+		 	
+		 	<div class="span8">
+		 	
+		 		<ul class="breadcrumb">
+ 			        	<li><a href="{{ url_for('index')}}">Home</a> <span class="divider">/</span></li>
+	  					<li><a href="{{ url_for('add_point')}}">Maps</a> <span class="divider">/</span></li>
+	  					<li class="active">Add Point</li>
+				</ul>
+		 	
+		 	   
+		 	
+		 	
+		 		<div class="control-group">
+		 			<div class="well" style="padding: 15px;">
+		 				<form method="POST" action="{{ url_for('add_point')}}">
+		 					
+		 					<!--Title-->
+		 					<div class="control-group">
+         					   	  <label class="control-label"><b>Title* : </b></label>
+            					  <div class="controls">
+                				   	<input  class="span6"  name="Judul" max="10" type="text"  class="input-xlarge">
+                		 		  </div>
+        				    </div>		
+
+        				    <!--coordinate-->
+		 					<div class="control-group">
+            					  <div class="controls">
+            					   <label class="control-label"><b>Coordinate* : </b></label>
+                				   	<input  class="span3"  name="Latitude" placeholder="Latitude" type="text"  class="input-xlarge">
+                				   	<input  class="span3"  name="Longtitude" placeholder="Longtitude" type="text"  class="input-xlarge">
+                		 		  </div>
+        				    </div>		
+
+        				    <!--Description-->
+        				    <div class="control-group">
+         					   	  <label class="control-label"><b>Description* : </b></label>
+            					  <textarea class="span6 form-control" rows="5" name="Description" ></textarea>
+        				    </div>			
+
+        				    <div class="control-group">
+         					   <label class="control-label"><b>Type* : </b></label>
+            					 <div class="controls">
+                				 <select id="country"  name="TypeIcon"class="span6">
+                				 		<option value="" selected="selected">(Select Your Type)</option>
+                				 		<option value="Home">Home</option> 
+                				 		<option value="Airport">Airport</option> 
+                				 		<option value="Bank">Bank</option> 
+                				 		<option value="Store">Store</option> 
+										<option value="Building">Building</option> 
+										<option value="Field">Field</option> 
+										<option value="Toilet">Toilet</option> 
+										<option value="Canteen">Canteen</option> 
+										<option value="Terminal">Terminal</option> 
+										<option value="Coffe Shop">Coffe Shop</option> 
+										<option value="Restaurant">Restaurant</option> 
+										<option value="Park">Park</option> 
+										<option value="Uncategorized">Uncategorized</option> 
+                				 </select>	 		
+                			</div>	 
+
+
+        				    <!--Town-->
+		 					<div class="control-group">
+         					   	  <label class="control-label"><b>Town* : </b></label>
+            					  <div class="controls">
+                				   	<input  class="span6" type="text"  name="Town" class="input-xlarge">
+                		 		  </div>
+        				    </div>	
+
+        				    
+
+                			<!--Tags-->
+		 					<div class="control-group">
+         					   	  <label class="control-label"><b>Tags : </b></label>
+            					  <div class="controls">
+                				   	<input  class="span6" name="Tag" type="text" placeholder="example : University Syiah Kuala, Kopelma"  class="input-xlarge">
+                		 		  </div>
+        				    <button class="btn btn-primary btn-lg offset1 icon-map-marker" style="width: 300px;"> Add point</button>	
+        				    </div>
+
+		 				</form>
+		 			</div>
+				</div>
+		 	
+		 	</div>
+		</div>
+
+      </div>
+<hr>
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">Developed by <a href="http://firdaus.jones.dk/">firdaus</a></p>
+      </div>
+    </div>
+</body>
+</html>
