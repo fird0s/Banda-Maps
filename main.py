@@ -107,14 +107,6 @@ def point_edit(route):
 				marker_edit.Location = request.form["Town"]
 				marker_edit.Icon_Set = request.form["TypeIcon"]
 				marker_edit.Last = datetime.now()
-			#if request.files["Image1"]:
-			#	file = request.files["Image1"]
-			#	rand = [random.choice(string.letters+string.digits) for x in xrange(35)]
-	 	   	#	rand = "".join(rand)				
-	 	   	#	file.save('/home/fird0s/femaps/uploads/images_markers/%s' % (rand))
-	 	   	#	marker_edit.Image_Upload1 = rand
-	 	   	#if request.form["Tag"]:
-	 	   	#	marker_edit.Tags = request.form["Tag"]
 		 	   	session_db.add(marker_edit)		
 		 	   	session_db.commit()	
 	 	   	except:
