@@ -1,15 +1,19 @@
-from flask import Flask, request
+
+#standart Python library
+import os, random, string, imghdr, base64
+from datetime import datetime
+
+#Flask Module
 from flask import *
 bandamaps = Flask(__name__)
-from flask import render_template
-import base64
+
+#SQLAlchemy Module for Database collaboration
 from models import *
 from sqlalchemy.exc import *
 from sqlalchemy.orm.exc import NoResultFound
-from datetime import datetime
-import os
-import random, string
-import imghdr
+
+
+
 
 @bandamaps.route('/')
 def index():
@@ -179,12 +183,14 @@ def register():
 
 @bandamaps.route('/user/<username>')
 def user(username):
+	if "user" not in session:
+		return redirect(url_for('singin'))
 	try :
 		data = session_db.query(Users).filter_by(Username = username).one() 
-		
+		session_user = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 
 	except sqlalchemy.orm.exc.NoResultFound, sqlalchemy.exc.InvalidRequestError:	
 		return "No User"
-	return render_template('user.html', data=data)
+	return render_template('user.html', data=data, session_user=session_user)
 
 
 @bandamaps.route('/user/logout', methods=["POST", "GET"])
@@ -210,6 +216,47 @@ def history():
 	all_markers.reverse()
 	return render_template("history.html", all_markers=all_markers)
 
+@bandamaps.route('/user/settings', methods=["POST", "GET"])
+def user_setting():
+	if "user" not in session:
+		return redirect(url_for("singin"))
+	data = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 	
+	if request.method == "POST":
+		if request.form["FullName"] and request.form["Email"] and request.form["Phone"] and request.form["Work"]:
+			data_change = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 	
+			#save yang required dulu
+			data_change.FullName = request.form["FullName"]
+			data_change.Email = request.form["Email"]
+			data_change.Phone = request.form["Phone"]
+			data_change.Work = request.form["Work"]
+			data_change.Last_Log = request.remote_addr
+
+			#save yang tidak terlalu perlu
+			data_change.Alamat = request.form["Address"]
+			data_change.Profile_Description = request.form["Description"]
+			data_change.Website = request.form["Website"]
+			session_db.add(data_change)
+			session_db.commit()
+			return redirect(url_for("user_setting"))
+		else:
+			return "Please fill form required"	
+	return render_template("user_settings.html", data=data)		
+
+@bandamaps.route('/user/settings/change-password', methods=["POST", "GET"])	
+def change_password():
+	if "user" not in session:
+		return redirect(url_for("singin"))
+	data = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 	
+	if request.method == "POST":
+		if request.form["OldPassword"] and request.form["NewPassword"] and request.form["ReTypePassword"]:
+			if request.form["OldPassword"] != decrypt(data.Password)  :
+				return "Your Old Password is wrong"
+			if request.form["NewPassword"] != request.form["ReTypePassword"]:
+				return "Please enter same value New Password with Retype New Password"	
+
+	return render_template("change_password.html", data=data)
+
+
 @bandamaps.route('/test', methods=["POST", "GET"])
 def test():
 	if request.method == "POST":
@@ -217,12 +264,8 @@ def test():
 			file = request.files["file"]
 	 	   	rand = [random.choice(string.letters+string.digits) for x in xrange(35)]
 	 	   	rand = "".join(rand)
-	    	
 			file.save('/home/fird0s/femaps/uploads/images_markers/%s' % (rand))
-		
 	return render_template("file.html")
-
-
 
 if __name__ == '__main__':
     bandamaps.debug = True

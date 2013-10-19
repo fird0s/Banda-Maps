@@ -107,7 +107,7 @@
         				    </div>		
 
         				    <!--coordinate-->
-		 					<div class="control-group">
+		 				       	<div class="control-group">
             					  <div class="controls">
             					   <label class="control-label"><b>Coordinate* : </b></label>
                 				   	<input  class="span3"  value="{{data_marker.Latitude}}" name="Latitude" placeholder="Latitude" type="text"  class="input-xlarge">
@@ -121,6 +121,7 @@
             					  <textarea class="span6 form-control" rows="5" name="Description" >{{data_marker.Description}}</textarea>
         				    </div>			
 
+                    <!--Type Icon-->
         				    <div class="control-group">
          					   <label class="control-label"><b>Type* : </b></label>
             					 <div class="controls">
@@ -130,20 +131,20 @@
                 				 		<option value="Airport">Airport</option> 
                 				 		<option value="Bank">Bank</option> 
                 				 		<option value="Store">Store</option> 
-										<option value="Building">Building</option> 
-										<option value="Field">Field</option> 
-										<option value="Toilet">Toilet</option> 
-										<option value="Canteen">Canteen</option> 
-										<option value="Terminal">Terminal</option> 
-										<option value="Coffe Shop">Coffe Shop</option> 
-										<option value="Restaurant">Restaurant</option> 
-										<option value="Park">Park</option> 
-										<option value="Uncategorized">Uncategorized</option> 
+        										<option value="Building">Building</option> 
+        										<option value="Field">Field</option> 
+        										<option value="Toilet">Toilet</option> 
+        										<option value="Canteen">Canteen</option> 
+        										<option value="Terminal">Terminal</option> 
+        										<option value="Coffe Shop">Coffe Shop</option> 
+        										<option value="Restaurant">Restaurant</option> 
+        										<option value="Park">Park</option> 
+        										<option value="Uncategorized">Uncategorized</option> 
                 				 </select>	 		
                 			</div>	 
 
         				    <!--Town-->
-		 					<div class="control-group">
+		 				       	<div class="control-group">
          					   	  <label class="control-label"><b>Town* : </b></label>
             					  <div class="controls">
                 				   	<input  class="span6" value="{{data_marker.Location}}" type="text"  name="Town" class="input-xlarge">
@@ -160,7 +161,7 @@
 
         				    		{% else %}	
 
-        				    		<img src="{{ url_for('static', filename='uploads/images_markers')}}/{{data_marker.Image_Upload1}}"  style="width: 450px;" class="img-polaroid">
+        				    		<img src="{{ url_for('static', filename='uploads/images_markers')}}/{{data_marker.Image_Upload1}}" title="Click here to upload new image" style="width: 450px;" class="img-polaroid">
 
         				    	  {% endif %}		
 							    </a>

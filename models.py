@@ -30,7 +30,6 @@ class Users(Base):
 	Date_Joined = Column(DATE())
 	Last_Log = Column(String(100))
 	
-	
 	def __init__(self, Username, FullName, Password, Email, Phone, Work, Last_Log):
 		self.Username = Username 
 		self.FullName = FullName
