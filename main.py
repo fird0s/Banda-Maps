@@ -224,6 +224,30 @@ def user_setting():
 	if request.method == "POST":
 		if request.form["FullName"] and request.form["Email"] and request.form["Phone"] and request.form["Work"]:
 			data_change = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 	
+		
+		if request.files["Image-Photo"]:
+			file = request.files["Image-Photo"]
+			if imghdr.what(file) == None:
+					return "Please Upload just Image Extension"
+			else:
+				rand = [random.choice(string.letters+string.digits) for x in xrange(35)]
+				rand = "".join(rand)		
+				
+				# remove last image uploaded
+				try:
+					os.remove("/home/fird0s/femaps/static/uploads/image_profile/%s" % (data_change.Profile_Image_Location)) 		
+				except OSError:
+					pass
+
+				# add new images 	
+				file.save('/home/fird0s/femaps/static/uploads/image_profile/%s' % (rand) )	
+				data_change.Profile_Image_Location = rand
+
+
+				
+						
+				
+
 			#save yang required dulu
 			data_change.FullName = request.form["FullName"]
 			data_change.Email = request.form["Email"]
@@ -253,8 +277,20 @@ def change_password():
 				return "Your Old Password is wrong"
 			if request.form["NewPassword"] != request.form["ReTypePassword"]:
 				return "Please enter same value New Password with Retype New Password"	
+			else:
+				data.Password = encrypt(request.form["NewPassword"])
+				session_db.add(data)	
+				session_db.commit()
 
 	return render_template("change_password.html", data=data)
+
+@bandamaps.route("/view_point/<id>")
+def view_point(id):
+	try:
+		marker_view = session_db.query(Markers).filter_by(id = id).one()           
+	except sqlalchemy.orm.exc.NoResultFound:
+		return "No Data Available"	
+	return render_template("view_point.html", marker_view=marker_view)
 
 
 @bandamaps.route('/test', methods=["POST", "GET"])

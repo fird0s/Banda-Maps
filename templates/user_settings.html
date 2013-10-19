@@ -118,7 +118,7 @@
         			    <!--Photo Profile-->
         			     <div class="control-group">
         				    	<label class="control-label"><b>Photo Profile : </b></label>        				    	
-        				    	<img src="{{ url_for('static', filename='uploads/images_markers')}}/no-image-icon.jpg"  style="width: 200px;" class="img-polaroid">
+        				    	<img src="{{ url_for('static', filename='uploads/image_profile')}}/{{ data.Profile_Image_Location }}"  style="width: 150px; height: 150px;" class="img-circle">
 
         				    	<button onclick="document.getElementById('fileID').click(); return false;" class="btn">Upload New Photo</button>
         				    	<input type="file" name="Image-Photo" id="fileID" value="1024" style="visibility: hidden;" />
@@ -409,7 +409,7 @@
 		 				<div class="control-group">
          				   	  <label class="control-label"><b>About your self : </b></label>
             				  <div class="controls">
-                			   	<textarea class="span6 form-control" rows="5" name="Description" >{{ data.Profile_Description}}
+                			   	<textarea class="span6 form-control" rows="3" name="Description" >{{ data.Profile_Description}}
                 			   	</textarea>
                          	  </div> 	  
         			    </div>	
