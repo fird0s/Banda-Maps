@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="id">
+<head>
+	<title>About | Aceh Maps</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png')}}">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	
+	<!-- for index -->
+	<meta name="description" content="Maps for Aceh area, everything we can found there, and orientate to people what want to visit" />
+	<meta name="author" content="Muhammad Firdaus, fird0s">
+	<meta name="keywords" content="Aceh Maps, Maps Aceh, Aceh, Aceh Location">
+	
+	
+	<!-- Leflet config -->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+ 	<!--[if lte IE 8]>
+     		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+     		<link rel="stylesheet" href="static/css/font-awesome-ie7.min.css" />
+ 	<![endif]-->
+ 	
+ 	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+
+        <!--End Leaflet config-->
+    	
+    	<!--FONT AWESOME/ICON SETTING -->
+    	<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}" />
+    
+	
+	
+</head>
+<body>
+
+<!--HEADER-->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+  <div class="container">
+    <a class="brand" href="/">BANDA MAPS</a>
+      <form class="navbar-form pull-left">
+        <input type="text" class="span6" placeholder="cari lokasi">
+        <button class="btn btn-success" type="submit">
+         <i class="icon-search icon-white"></i>
+        </button>
+      </form>
+    <ul class="nav" style="margin-left: 10px;">
+      <li><a href="{{ url_for('index') }}"><b><u>Home</u></b></a></li>	
+      <li class="active"><a href="{{ url_for('about') }}"><b><u>About</u></b></a></li>
+      <li><a href="{{ url_for('account') }}"><b><u>Account</u></b></a></li>
+    </ul>
+   </div> 
+  </div>
+</div>
+<!--END HEADER-->
+
+<!--START CONTENT -->
+<body>
+<div id="wrap">
+      <!-- Begin page content -->
+      <div class="container"><br><br><br>
+        
+          <h1>Apa Ini?</h1><hr>
+        
+        <p class="lead">FE of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <!--<p>Use <a href="./sticky-footer-navbar.html">the sticky footer</a> with a fixed navbar if need be, too.</p>-->
+         <div class="page-header"><br><br>
+          <h1>Kontak</h1>
+        </div> 
+        <p class="lead">Jika Anda memiliki saran, kritikan, pertanyaan, menemukan masalah atau yang lain, silahkan hubungi :</p>
+        
+         <h4><li>Muhammad Firdaus</li></h4>
+         	<p class="text-info icon-envelope"> firdauskoder@gmail.com</p>
+         	<p class="text-info icon-twitter">   <a href="#">@fird0s</a></p>
+      </div>
+
+      <div id="push"></div>
+    </div>
+<hr>
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">Developed by <a href="http://firdaus.jones.dk/">firdaus</a></p>
+      </div>
+    </div>
+</body>
+</html>

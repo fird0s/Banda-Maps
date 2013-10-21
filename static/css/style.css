@@ -1,0 +1,26 @@
+body { overflow-x: hidden; overflow-y: auto;}
+#map { height: 598px; width: 1360px; margin-top: 35px;}
+
+
+/*setting untuk scroll */
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 8px;
+    background: white;   
+    opacity: 0.8;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.3); 
+    
+    
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+   
+    
+    background: white; 
+    -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
+}
