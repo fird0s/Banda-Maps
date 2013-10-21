@@ -187,12 +187,19 @@ def user(username):
 		return redirect(url_for('singin'))
 	try :
 		data = session_db.query(Users).filter_by(Username = username).one() 
+<<<<<<< HEAD
 		markers_data = session_db.query(Markers).filter_by(Adder = username).all()
 		markers_data.reverse()
 		session_user = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 
 	except sqlalchemy.orm.exc.NoResultFound, sqlalchemy.exc.InvalidRequestError:	
 		return "No User"
 	return render_template('user.html', data=data, session_user=session_user, markers_data=markers_data)
+=======
+		session_user = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 
+	except sqlalchemy.orm.exc.NoResultFound, sqlalchemy.exc.InvalidRequestError:	
+		return "No User"
+	return render_template('user.html', data=data, session_user=session_user)
+>>>>>>> 9c2e8fdd02e7bd5c8df0678e425b71bbd080e7c4
 
 
 @bandamaps.route('/user/logout', methods=["POST", "GET"])

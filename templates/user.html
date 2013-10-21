@@ -102,7 +102,11 @@
 		 				
 		 				<div class="span2">
 						  {% if data.Profile_Image_Location == None %}
+<<<<<<< HEAD
 						  <img src="{{ url_for('static', filename='uploads/images_markers')}}/no-image-icon.jpg"  alt="" class="img-circle" style="width: 160px; height: 160px;">
+=======
+						  <img src="{{ url_for('static', filename='uploads/images_markers')}}/no-image-icon.jpg"  alt="" class="img-circle" style="width: 150px; height: 150px;">
+>>>>>>> 9c2e8fdd02e7bd5c8df0678e425b71bbd080e7c4
 
 						  {% else %}
 
@@ -127,6 +131,7 @@
 						</div>
 						<div class="clearfix"></div>
 
+<<<<<<< HEAD
 						<div class="breadcrumb " style="padding: 10px;">
 						    <h4 class="alert alert-info">About </h4>
 							<p class="text-info">{{ data.Profile_Description}}</p>
@@ -158,6 +163,12 @@
 
 						</div>	
 
+=======
+						<div class="breadcrumb alert" style="padding: 10px;">
+						    <h4><u>About</u> </h4>
+							<p class="">{{ data.Profile_Description}}</p>
+						</div>	
+>>>>>>> 9c2e8fdd02e7bd5c8df0678e425b71bbd080e7c4
 				</div>
 		 	</div>
 		</div>
