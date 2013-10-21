@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html lang="id">
+<head>
+	<title>Aceh Maps</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png')}}">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	
+	<!-- for index -->
+	<meta name="description" content="Maps for Aceh area, everything we can found there, and orientate to people what want to visit" />
+	<meta name="author" content="{{ data.Username}}, fird0s">
+	<meta name="keywords" content="Aceh Maps, Maps Aceh, Aceh, Aceh Location">
+	
+	<!-- Leflet config -->
+	
+ 	<!--[if lte IE 8]>
+     		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+     		<link rel="stylesheet" href="static/css/font-awesome-ie7.min.css" />
+ 	<![endif]-->
+
+        <!--End Leaflet config-->
+    	
+    	<!--FONT AWESOME/ICON SETTING -->
+    	<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}" />
+    
+	
+</head>
+<body>
+
+<!--HEADER-->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+  <div class="container">
+    <a class="brand" href="/">BANDA MAPS</a>
+      <form class="navbar-form pull-left">
+        <input type="text" class="span6" placeholder="cari lokasi">
+        <button class="btn btn-success" type="submit">
+         <i class="icon-search icon-white"></i>
+        </button>
+      </form>
+    <ul class="nav" style="margin-left: 10px;">
+      <li><a href="{{ url_for('index') }}"><b><u>Home</u></b></a></li>	
+      <li><a href="{{ url_for('about') }}"><b><u>About</u></b></a></li>
+      <li class="active"><a href="{{ url_for('account') }}"><b><u>Account</u></b></a></li>
+    </ul>
+   </div> 
+  </div>
+</div>
+<!--END HEADER-->
+
+<!--START CONTENT -->
+<body>
+<div id="wrap"><br><br>
+    
+      <div class="container">
+  		<div class="row"><br><br>
+		 	<div class="span3">
+		 		<div class="well" style="max-width: 340px; padding: 13px 0;">
+		 		<ul class="nav nav-list">
+				
+					<li class="nav-header">User Menu</li>        
+					  <li class="active"><a href="/user/{{ session_user.Username}}"><i class="icon-home"></i> {{ session_user.Username}}</a></li>
+					  <li><a href="#"><i class="icon-envelope"></i> Messages <span class="badge badge-info">4</span></a></li>
+					  
+					  <li><a href="{{ url_for('user_setting') }}"><i class="icon-cog"></i> Settings</a></li>
+					  <li><a href="{{ url_for('change_password') }}"><i class="icon-eye-open"></i> Change Password</a></li>
+					  <li><a href="{{ url_for('logout')}}"><i class="icon-share"></i> Logout</a></li>	  
+					  
+				</ul>
+				
+				
+				<ul class="nav nav-list">
+					<li class="divider"></li>
+					<li class="nav-header">Maps</li>
+					<li><a href="{{ url_for('add_point')}}"><i class="icon-map-marker"></i> Add Point</a></li>
+					<li><a href="index"><i class="icon-tags"></i> Make Direction</a></li>
+					<li><a href="{{ url_for('history')}}"><i class="icon-folder-open"></i> History</a></li>
+					
+				  
+				</ul><br>
+				
+					
+				<ul class="nav nav-list">
+					<li class="divider"></li>
+					<li class="nav-header">Help</li>
+					<li><a href="index"><i class="icon-lightbulb"></i>Help Centre</a></li>
+					<li><a href="index"><i class="icon-th-list"></i>Documentation</a></li>
+				  
+				</ul>
+				
+				</div>
+		 	</div>
+		 	
+		 	<div class="span8">
+		 		<ul class="breadcrumb">
+ 			        	<li><a href="{{ url_for('index')}}">Home</a> <span class="divider">/</span></li>
+ 			        	<li><a href="">{{ data.FullName }}</a> <span class="divider">/</span></li>
+	  					<li class="btn btn-primary btn-xs">{{ data.Username}}</li>
+				</ul>
+		 		<div class="control-group ">
+		 				
+		 				<div class="span2">
+						  {% if data.Profile_Image_Location == None %}
+						  <img src="{{ url_for('static', filename='uploads/images_markers')}}/no-image-icon.jpg"  alt="" class="img-circle" style="width: 160px; height: 160px;">
+
+						  {% else %}
+
+						  <img src="{{ url_for('static', filename='uploads/image_profile')}}/{{ data.Profile_Image_Location }}"  alt="" class="img-circle" style="width: 150px; height: 150px;">
+
+						  {% endif %}
+						</div>
+						
+						<div class="span5">
+						  <blockquote>
+							<p>{{ data.FullName }}</p>
+							<small><cite title="Source Title">Location : {{ data.Alamat }}  <i class="icon-map-marker"></i></cite></small>
+							<i class="icon-calendar"></i> Member since : {{ data.Date_Joined }} <br>
+						  </blockquote>
+
+						  <ul>
+						  	<li class="icon-user"></i>  Username : {{ data.Username}} </li><br>
+						  	<li class="icon-mobile-phone"></i> Phone : {{ data.Phone}} </li><br>
+							<li class="icon-envelope"></i>  Mail : {{ data.Email}} </li><br>
+							<li class="icon-external-link"></i>  Website : {{ data.Website}} </li>
+						  </ul>
+						</div>
+						<div class="clearfix"></div>
+
+						<div class="breadcrumb " style="padding: 10px;">
+						    <h4 class="alert alert-info">About </h4>
+							<p class="text-info">{{ data.Profile_Description}}</p>
+						</div>	
+
+						<div class="breadcrumb" style="padding: 10px;">
+						    <h4 class="alert alert-info">{{ data.Username}}'s Commit </h4>
+								<table class="table table-striped table-condensed">
+								 <thead>
+								      <tr>
+								          <th class="">Title</th>
+								          <th>Date registered</th>
+								          <th>Location</th>
+								          <th>Tags</th>                                          
+								      </tr>
+								  </thead>   
+								  <tbody>
+								    {% for markers_data in markers_data %}	
+								    <tr>
+								        <td><a class="text-success" href="/view_point/{{ markers_data.id }}" target="blank">{{ markers_data.Title }}</a></td>
+								        <td>{{ markers_data.Last }}</td>
+								        <td>{{ markers_data.Location }}</td>
+								        <td><span class="label label-success">{{ markers_data.Tags }}</span></td>                                       
+								    </tr>
+								    {% endfor %}
+								                        
+								  </tbody>
+								</table>
+
+						</div>	
+
+				</div>
+		 	</div>
+		</div>
+
+      </div>
+<hr>
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">Developed by <a href="http://firdaus.jones.dk/">firdaus</a></p>
+      </div>
+    </div>
+</body>
+</html>
