@@ -34,8 +34,8 @@
   <div class="navbar-inner">
   <div class="container">
     <a class="brand" href="/">BANDA MAPS</a>
-      <form class="navbar-form pull-left">
-        <input type="text" class="span6" placeholder="cari lokasi">
+      <form method="GET" action="{{ url_for("search") }}"class="navbar-form pull-left">
+        <input type="text" name="search" class="span6" placeholder="cari lokasi">
         <button class="btn btn-success" type="submit">
          <i class="icon-search icon-white"></i>
         </button>
@@ -143,9 +143,9 @@
                 				 </select>	 		
                 			</div>	 
 
-        				    <!--Town-->
+        				    <!--Village-->
 		 				       	<div class="control-group">
-         					   	  <label class="control-label"><b>Town* : </b></label>
+         					   	  <label class="control-label"><b>Village* : </b></label>
             					  <div class="controls">
                 				   	<input  class="span6" value="{{data_marker.Location}}" type="text"  name="Town" class="input-xlarge">
                 		 		  </div>
@@ -177,7 +177,9 @@
             					  <div class="controls">
                 				   	<input  class="span6" name="Tag" type="text" value="{{data_marker.Tags}}" class="input-xlarge">
                 		 		  </div>
-        				    <button class="btn btn-primary btn-lg offset1 icon-map-marker" style="width: 300px;"> Change point</button>	
+        				    <button class="btn btn-primary btn-lg icon-tags sp" style="width: 300px;"> Change point</button>	
+                    <a href="/view_point/{{data_marker.id}}" class="btn btn-primary btn-lg icon-map-marker"> View point</a> 
+
         				    </div>
 		 				</form>
 		 			</div>

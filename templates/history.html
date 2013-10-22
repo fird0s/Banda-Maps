@@ -20,16 +20,11 @@
      		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
      		<link rel="stylesheet" href="static/css/font-awesome-ie7.min.css" />
  	<![endif]-->
- 	
- 	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 
+	 	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
         <!--End Leaflet config-->
-    	
     	<!--FONT AWESOME/ICON SETTING -->
     	<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}" />
-    	
-    	
-	
 	
 </head>
 <body>
@@ -39,8 +34,8 @@
   <div class="navbar-inner">
   <div class="container">
     <a class="brand" href="/">BANDA MAPS</a>
-      <form class="navbar-form pull-left">
-        <input type="text" class="span6" placeholder="cari lokasi">
+      <form method="GET" action="{{ url_for("search") }}"class="navbar-form pull-left">
+        <input type="text" name="search" class="span6" placeholder="cari lokasi">
         <button class="btn btn-success" type="submit">
          <i class="icon-search icon-white"></i>
         </button>
@@ -95,16 +90,11 @@
 		 	</div>
 		 	
 		 	<div class="span8">
-		 	
 		 		<ul class="breadcrumb">
  			        	<li><a href="{{ url_for('index')}}">Home</a> <span class="divider">/</span></li>
 	  					<li><a href="{{ url_for('add_point')}}">Maps</a> <span class="divider">/</span></li>
 	  					<li class="active">Histories</li>
 				</ul>
-		 	
-		 	   
-		 	
-		 	
 		 		<div class="control-group">
 		 			<div class="well" style="padding: 15px;">
 		 				<table class="table table-condensed table-hover">
@@ -114,34 +104,31 @@
 					          <th><i class="icon-pencil"> TITLE</i></li></th>
 					          <th><i class="icon-calendar"> DATE</i></li></th>
 					          <th><i class="icon-user"> ADDER</i></li></th>
-					          
 					        </tr>
 					      </thead>
-
 					      <tbody>
 					      {% for all_markers in all_markers %}
 					        <tr>
-					          <td><a href="/edit_point/route/{{ all_markers.id }}">#{{ all_markers.id }}</a></td>
+					          <td><a href="/view_point/{{ all_markers.id }}">#{{ all_markers.id }}</a></td>
 					          <td title="{{ all_markers.Description  }}">{{ all_markers.Title | title | truncate  }}</td>
 					          <td>{{ all_markers.Last }}</td>
 					          <td><a href="/user/{{ all_markers.Adder }}" target="blank">{{ all_markers.Adder }}</a></td>
 					        </tr>	
 					      {% endfor %}
-
-
 					    </table> 
 		 			</div>
 				</div>
-		 	
 		 	</div>
 		</div>
 
       </div>
 <hr>
+
     <div id="footer">
       <div class="container">
         <p class="muted credit">Developed by <a href="http://firdaus.jones.dk/">firdaus</a></p>
       </div>
     </div>
+
 </body>
 </html>

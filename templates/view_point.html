@@ -1,17 +1,16 @@
 <!DOCTYPE HTML>
 <html lang="id">
 <head>
-	<title>Aceh Maps</title>
+ 	<title>{{ marker_view.Title }} Aceh Maps</title>
+
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 	<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png')}}">
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	
 	<!-- for index -->
-	<meta name="description" content="Maps for Aceh area, everything we can found there, and orientate to people what want to visit" />
-	<meta name="author" content="Muhammad Firdaus, fird0s">
-	<meta name="keywords" content="Aceh Maps, Maps Aceh, Aceh, Aceh Location">
-	
+	<meta name="description" content="Maps for Banda Aceh, everything we can found there, and orientate to people what want to visit" />
+	<meta name="author" content="{{ marker_view.Adder }}, fird0s">
+	<meta name="keywords" content="{{ marker_view.Title }}, Banda Maps">
 	
 	<!-- Leflet config -->
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
@@ -26,17 +25,18 @@
     	
     	<!--FONT AWESOME/ICON SETTING -->
     	<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}" />
+    	<link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet.awesome-markers.css')}}" />
+    	<script src="{{ url_for('static', filename='js/leaflet.awesome-markers.js')}}"></script>
     	
 </head>
 <body>
-
 <!--HEADER-->
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
   <div class="container">
     <a class="brand" href="/">BANDA MAPS</a>
-      <form class="navbar-form pull-left">
-        <input type="text" class="span6" placeholder="cari lokasi">
+      <form method="GET" action="{{ url_for("search") }}"class="navbar-form pull-left">
+        <input type="text" name="search" class="span6" placeholder="cari lokasi">
         <button class="btn btn-success" type="submit">
          <i class="icon-search icon-white"></i>
         </button>
@@ -52,8 +52,6 @@
 <!--END HEADER-->
 
 <!--START CONTENT -->
-<body>
-
 <div id="wrap"><br><br>
 
         <div class="container"><br>
@@ -61,61 +59,82 @@
 				<ul class="breadcrumb">
 	 			        	<li><a href="{{ url_for('index')}}">Home</a> <span class="divider">/</span></li>
 		  					<li><a href="{{ url_for('account')}}">View Point</a> <span class="divider">/</span></li>
-		  					<li class="active">#id</li>
+		  					<li class="active">#{{marker_view.id }}</li>
 				</ul>
 		 
 				<div class="well" style="padding: 20px;">
-					
 					<div class="container">
-		<h1>Snipp preview:</h1>				
-		<div class="row">
-			<div class="span12" style="margin-left: 50px;">
-		
-				<div class="row">
-					<div class="span2">
-						<p class="lead"><u>Author :</u></p>
-						<p><strong>fird0s</strong></p>
-						<p class="muted"><b>Snipp created on :</b> <br>
-						2013-08-13 08:08:51
-					</div>
-				<div class="span4">
-					<p class="lead"><u>Description :</u> </p>
-					<p><div>Snippet used on a client website containing a simple google maps iframe and an address element - responsive</div><div><br></div></p>
-				</div>
-				<div class="span2">
-					<p class="lead"><u>Tags :</u> </p>
-					<a href=""><span class="label label-info">user interface</span></a> 
-					<a href=""><span class="label label-info">maps</span></a> 	 </div>
-	 
-				</div>		
-			</div>
-		</div>
+						<div classs="row">
+						  	<div class="span3">
+								{% if marker_view.Image_Upload1 == "no-image-icon" %}	
+								
+								<img src="{{ url_for('static', filename='uploads/images_markers')}}/no-image-icon.jpg"  style="width: 350px; height: 200px;" class="img-polaroid">
+								
+								{% else %}
 
-		<div classs="row">
-		  	<div class="span3">
-				<img src="{{ url_for('static', filename='uploads/images_markers')}}/no-image-icon.jpg"  style="width: 350px; height: 200px;" class="img-polaroid">
-			</div>
+								<img src="{{ url_for('static', filename='uploads/images_markers')}}/{{ marker_view.Image_Upload1 }}"  style="width: 350px; height: 200px;" class="img-polaroid">
+								{% endif %}
+							</div>
 
-			<div class="span4">
-				<h2>Snail mail</h2>
-				<address>
-					<strong>Hythe Window Cleaning</strong><br>
-					 Latitude 192.168.1.1<br>
-					 Longtitude 192.168.1.1<br>
-					 Location <br>
-				</address><br>
-			</div>				
-		</div>
+							<div class="span4">
+								<h3>{{ marker_view.Title }}</h3>
+								<address>
+									<strong>Location : </strong>{{ marker_view.Location }}<br>
+									 <strong> Latitude : </strong>  {{ marker_view.Latitude}}<br>
+									 <strong> Longtitude : </strong> {{ marker_view.Longtitude }}<br><br>
+									 <a class="btn btn-primary" target="blank" href="/edit_point/route/{{ marker_view.id }}">Edit</a>
+									 <a class="btn" href="#">Report</a>
+								</address>
+							</div>				
+						</div>
+						<br>
+						<div class="row">
+							<div class="span9" style="margin-left: 50px;"><hr>
+								<div class="row">
+									<div class="span2">
+										<p class="lead"><u>Author :</u></p>
+										<p><strong>{{ marker_view.Adder }}</strong></p>
+										<p class="muted"><b>Snipp created on :</b> <br>
+										{{ marker_view.Last }}
+									</div>
+									<div class="span4">
+										<p class="lead"><u>Description :</u> </p>
+										<p><div>{{ marker_view.Description }}</div><div><br></div></p>
+									</div>
+									<div class="span2">
+										<p class="lead"><u>Tags :</u> </p>
+										<a href=""><span class="label label-info">{{ marker_view.Tags }}</span></a> 
+									</div>		
+								</div>
+							</div>	
 
 
-		<div class="span10">
-	    	<iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>
-		</div>
-		
-	  	
-		
-		
+							<div class="span10">
+								 <div id="map" style="width: 820px; height: 300px;"></div>
+								 <script type="text/javascript">
+								 	var map = L.map('map').setView([5.57282, 95.36743], 17); 
+	
+									L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+											{
+											maxZoom: 18,
+											zoomControl: false,
+											attribution: false
+											}).addTo(map); // Tile layer
 
+									var marker = L.marker([5.57282, 95.36743], {icon: L.AwesomeMarkers.icon({icon: 'building', color: 'blue', spin:false}) }).addTo(map);
+										marker.bindPopup("<b>BEJ</b><br> Lorem Ipsum is simply dummy text of <br> the printing and typesetting industry.");
+
+									var circle = L.circle([5.57282, 95.36743], 45, {
+									    color: 'red',
+									    fillColor: '#f03',
+									    fillOpacity: 0.5
+									}).addTo(map);
+								 </script>
+						    	
+							</div>
+						</div>
+					</div>		
+				</div>			
 	</div>
 </div>
 

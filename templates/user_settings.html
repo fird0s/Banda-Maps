@@ -36,8 +36,8 @@
   <div class="navbar-inner">
   <div class="container">
     <a class="brand" href="/">BANDA MAPS</a>
-      <form class="navbar-form pull-left">
-        <input type="text" class="span6" placeholder="cari lokasi">
+      <form method="GET" action="{{ url_for("search") }}"class="navbar-form pull-left">
+        <input type="text" name="search" class="span6" placeholder="cari lokasi">
         <button class="btn btn-success" type="submit">
          <i class="icon-search icon-white"></i>
         </button>

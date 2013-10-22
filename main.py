@@ -13,8 +13,6 @@ from sqlalchemy.exc import *
 from sqlalchemy.orm.exc import NoResultFound
 
 
-
-
 @bandamaps.route('/')
 def index():
 	return render_template('index.html')
@@ -246,11 +244,6 @@ def user_setting():
 				file.save('/home/fird0s/femaps/static/uploads/image_profile/%s' % (rand) )	
 				data_change.Profile_Image_Location = rand
 
-
-				
-						
-				
-
 			#save yang required dulu
 			data_change.FullName = request.form["FullName"]
 			data_change.Email = request.form["Email"]
@@ -284,6 +277,7 @@ def change_password():
 				data.Password = encrypt(request.form["NewPassword"])
 				session_db.add(data)	
 				session_db.commit()
+				return "Success for change password"
 
 	return render_template("change_password.html", data=data)
 
@@ -294,6 +288,23 @@ def view_point(id):
 	except sqlalchemy.orm.exc.NoResultFound:
 		return "No Data Available"	
 	return render_template("view_point.html", marker_view=marker_view)
+
+
+@bandamaps.route("/search/")
+def search():
+	if request.method == "GET":
+		
+		markers_title = []
+		markers_tag = []
+		
+		if request.args.get("search", ""):
+			markers_title = session_db.query(Markers).filter(Markers.Title.like("%"+request.args.get("search", "")+"%"))
+			markers_tag = session_db.query(Markers).filter(Markers.Tags.like("%"+request.args.get("search", "")+"%"))
+		
+		else:
+			pass				
+	return render_template("search.html", markers_title=markers_title, markers_tag=markers_tag)
+
 
 
 @bandamaps.route('/test', methods=["POST", "GET"])
