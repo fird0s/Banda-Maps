@@ -57,6 +57,24 @@ class Markers(Base):
 	Last = Column(String(100))
 	Tags = Column(String(100))
 	
+	#icon set
+	#Home = icon-home 
+	#Bank = icon-money
+	#Building = icon-building
+	#store = icon-shopping-cart
+	#Field = 
+	#Toilet =  icon-tumblr-sign/icon-male/icon-user
+	#Airport =  icon-plane
+	#Terminal = icon-terminal
+	#coffe = icon-coffee
+	#Restaurant/Cantten  =  icon-food
+	#Park = default-marker
+	#ATM = icon-credit-card
+	#Perpusakaan = icon-book
+	#Rumah Sakir = icon-hospital
+	#perkantoran = icon-suitcase
+
+
 	def __init__(self, Adder, Latitude, Longtitude, Description, Location, Icon_Set, Image_Upload1, Last):
 		self.Adder = Adder
 		self.Latitude = Latitude

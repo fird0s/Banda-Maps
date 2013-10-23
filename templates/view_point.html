@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="id">
 <head>
- 	<title>{{ marker_view.Title }} Aceh Maps</title>
+ 	<title>{{ marker_view.Title }} | Banda Maps</title>
 
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
@@ -112,7 +112,7 @@
 							<div class="span10">
 								 <div id="map" style="width: 820px; height: 300px;"></div>
 								 <script type="text/javascript">
-								 	var map = L.map('map').setView([5.57282, 95.36743], 17); 
+								 	var map = L.map('map').setView([{{ marker_view.Latitude }}, {{ marker_view.Longtitude }}], 17); 
 	
 									L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
 											{
@@ -121,13 +121,13 @@
 											attribution: false
 											}).addTo(map); // Tile layer
 
-									var marker = L.marker([5.57282, 95.36743], {icon: L.AwesomeMarkers.icon({icon: 'building', color: 'blue', spin:false}) }).addTo(map);
+									var marker = L.marker([{{ marker_view.Latitude }}, {{ marker_view.Longtitude }}], {icon: L.AwesomeMarkers.icon({icon: 'building', color: 'blue', spin:false}) }).addTo(map);
 										marker.bindPopup("<b>BEJ</b><br> Lorem Ipsum is simply dummy text of <br> the printing and typesetting industry.");
 
-									var circle = L.circle([5.57282, 95.36743], 45, {
+									var circle = L.circle([{{ marker_view.Latitude }}, {{ marker_view.Longtitude }}], 105, {
 									    color: 'red',
 									    fillColor: '#f03',
-									    fillOpacity: 0.5
+									    fillOpacity: 0.2
 									}).addTo(map);
 								 </script>
 						    	
