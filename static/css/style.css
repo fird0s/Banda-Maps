@@ -15,6 +15,9 @@ z-index: 50;
 line-height: 40px;
 }
 
+
+.Img_Bg { width: 300px; height: 200px;}
+
 /*setting untuk scroll */
 /* Let's get this party started */
 ::-webkit-scrollbar {

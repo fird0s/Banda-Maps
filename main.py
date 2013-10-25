@@ -15,7 +15,8 @@ from sqlalchemy.orm.exc import NoResultFound
 
 @bandamaps.route('/')
 def index():
-	return render_template('index.html')
+	data_all_marker = session_db.query(Markers).all()
+	return render_template('index.html', data_all_marker=data_all_marker)
 
 
 @bandamaps.route('/about')
@@ -222,45 +223,46 @@ def user_setting():
 	if "user" not in session:
 		return redirect(url_for("singin"))
 	data = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 	
+	data_db_chaged = []
 	if request.method == "POST":
 		if request.form["FullName"] and request.form["Email"] and request.form["Phone"] and request.form["Work"]:
 			data_change = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 	
-		
-		if request.files["Image-Photo"]:
-			file = request.files["Image-Photo"]
-			if imghdr.what(file) == None:
-					return "Please Upload just Image Extension"
-			else:
-				rand = [random.choice(string.letters+string.digits) for x in xrange(35)]
-				rand = "".join(rand)		
-				
-				# remove last image uploaded
-				try:
-					os.remove("/home/fird0s/femaps/static/uploads/image_profile/%s" % (data_change.Profile_Image_Location)) 		
-				except OSError:
-					pass
+			if request.files["Image-Photo"]:
+				file = request.files["Image-Photo"]
+				if imghdr.what(file) == None:
+						return "Please Upload just Image Extension"
+				else:
+					rand = [random.choice(string.letters+string.digits) for x in xrange(35)]
+					rand = "".join(rand)		
+					
+					# remove last image uploaded
+					try:
+						os.remove("/home/fird0s/femaps/static/uploads/image_profile/%s" % (data_change.Profile_Image_Location)) 		
+					except OSError:
+						pass
 
-				# add new images 	
-				file.save('/home/fird0s/femaps/static/uploads/image_profile/%s' % (rand) )	
-				data_change.Profile_Image_Location = rand
+					# add new images 	
+					file.save('/home/fird0s/femaps/static/uploads/image_profile/%s' % (rand) )	
+					data_change.Profile_Image_Location = rand
 
-			#save yang required dulu
-			data_change.FullName = request.form["FullName"]
-			data_change.Email = request.form["Email"]
-			data_change.Phone = request.form["Phone"]
-			data_change.Work = request.form["Work"]
-			data_change.Last_Log = request.remote_addr
+				#save yang required dulu
+				data_change.FullName = request.form["FullName"]
+				data_change.Email = request.form["Email"]
+				data_change.Phone = request.form["Phone"]
+				data_change.Work = request.form["Work"]
+				data_change.Last_Log = request.remote_addr
 
-			#save yang tidak terlalu perlu
-			data_change.Alamat = request.form["Address"]
-			data_change.Profile_Description = request.form["Description"]
-			data_change.Website = request.form["Website"]
-			session_db.add(data_change)
-			session_db.commit()
-			return redirect(url_for("user_setting"))
+				#save yang tidak terlalu perlu
+				data_change.Alamat = request.form["Address"]
+				data_change.Profile_Description = request.form["Description"]
+				data_change.Website = request.form["Website"]
+				session_db.add(data_change)
+				session_db.commit()
+				return redirect(url_for("user_setting"))
+				data_db_chaged = session_db.query(Users).filter_by(Username = session.get("user", None)).one() 	
 		else:
-			return "Please fill form required"	
-	return render_template("user_settings.html", data=data)		
+			return "Please fill all form"
+	return render_template("user_settings.html", data=data, data_db_chaged=data_db_chaged)		
 
 @bandamaps.route('/user/settings/change-password', methods=["POST", "GET"])	
 def change_password():
@@ -284,7 +286,7 @@ def change_password():
 @bandamaps.route("/view_point/<id>")
 def view_point(id):
 	try:
-		marker_view = session_db.query(Markers).filter_by(id = id).one()           
+		marker_view = session_db.query(Markers).filter_by(id = id).one()
 	except sqlalchemy.orm.exc.NoResultFound:
 		return "No Data Available"	
 	return render_template("view_point.html", marker_view=marker_view)
@@ -309,12 +311,6 @@ def search():
 
 @bandamaps.route('/test', methods=["POST", "GET"])
 def test():
-	if request.method == "POST":
-		if request.files["file"]:
-			file = request.files["file"]
-	 	   	rand = [random.choice(string.letters+string.digits) for x in xrange(35)]
-	 	   	rand = "".join(rand)
-			file.save('/home/fird0s/femaps/uploads/images_markers/%s' % (rand))
 	return render_template("file.html")
 
 if __name__ == '__main__':

@@ -58,7 +58,7 @@
 
       <ul class="unstyled">
       {% for x in markers_title %}
-        <li><a href="/view_point/{{ x.id }}">{{ x.Title}} </a>, {{ x.Location}}</li>
+        <li><a href="/view_point/{{ x.id }}">{{ x.Title}}</a>, {{ x.Location}}</li>
       {% endfor %}
       </ul>
    {% endif %}
@@ -67,7 +67,7 @@
   {% if markers_tag %}
       <ul class="unstyled">
       {% for x in markers_tag %}
-        <li><a href="/view_point/{{ x.id }}">{{ x.Tags}} </a>, {{ x.Location}}</li>
+        <li><a href="/view_point/{{ x.id }}">{{ x.Tags}}</a>, {{ x.Location}}</li>
       {% endfor %}
       </ul>
    {% endif %}

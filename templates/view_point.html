@@ -76,10 +76,12 @@
 								{% endif %}
 							</div>
 
-							<div class="span4">
-								<h3>{{ marker_view.Title }}</h3>
+							<div class="span6">
+								<blockquote>
+									<h3>{{ marker_view.Title }}</h3>
+									<small><cite title="Source Title">Location : {{ marker_view.Location }}  <i class="icon-map-marker"></i></cite></small>
+								  </blockquote>
 								<address>
-									<strong>Location : </strong>{{ marker_view.Location }}<br>
 									 <strong> Latitude : </strong>  {{ marker_view.Latitude}}<br>
 									 <strong> Longtitude : </strong> {{ marker_view.Longtitude }}<br><br>
 									 <a class="btn btn-primary" target="blank" href="/edit_point/route/{{ marker_view.id }}">Edit</a>

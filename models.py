@@ -56,6 +56,9 @@ class Markers(Base):
 	Image_Upload3 = Column(String(40))
 	Last = Column(String(100))
 	Tags = Column(String(100))
+
+	
+		
 	
 	#icon set
 	#Home = icon-home 
@@ -63,9 +66,9 @@ class Markers(Base):
 	#Building = icon-building
 	#store = icon-shopping-cart
 	#Field = 
-	#Toilet =  icon-tumblr-sign/icon-male/icon-user
+	#Toilet =  icon-user
 	#Airport =  icon-plane
-	#Terminal = icon-terminal
+	#Terminal = truck
 	#coffe = icon-coffee
 	#Restaurant/Cantten  =  icon-food
 	#Park = default-marker
@@ -73,6 +76,7 @@ class Markers(Base):
 	#Perpusakaan = icon-book
 	#Rumah Sakir = icon-hospital
 	#perkantoran = icon-suitcase
+	#Uncategorized = no icon (use default marker without use awesome Markers)
 
 
 	def __init__(self, Adder, Latitude, Longtitude, Description, Location, Icon_Set, Image_Upload1, Last):
