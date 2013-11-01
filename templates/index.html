@@ -83,11 +83,20 @@ map.on('click', onMapClick);
 
 {% for data_all_marker in data_all_marker %}
 
+  {% if data_all_marker.Icon_Set == "Uncategorized" %}  
+  var marker =  L.marker([{{ data_all_marker.Latitude }}, {{ data_all_marker.Longtitude }}]).addTo(map)
+      .bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Description }} <a href='/view_point/{{ data_all_marker.id}}'>More info</a><br><img class='Img_Bg' src='/static/uploads/images_markers/{{data_all_marker.Image_Upload1}}'></img>");
+  {% endif %}
+
+  {% if data_all_marker.Icon_Set == "Toilet" %}  
+    var marker = L.marker([ {{ data_all_marker.Latitude }}, {{ data_all_marker.Longtitude }}], {icon: L.AwesomeMarkers.icon({icon: 'github', color: 'blue', spin:false}) }).addTo(map);
+marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Description }} <a href='/view_point/{{ data_all_marker.id}}'>More info</a><br><img class='Img_Bg' src='/static/uploads/images_markers/{{data_all_marker.Image_Upload1}}'></img>"); 
+    {% endif %}
+
    {% if data_all_marker.Icon_Set == "Field" %}  
     var marker = L.marker([ {{ data_all_marker.Latitude }}, {{ data_all_marker.Longtitude }}], {icon: L.AwesomeMarkers.icon({icon: 'map', color: 'green', spin:false}) }).addTo(map);
 marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Description }} <a href='/view_point/{{ data_all_marker.id}}'>More info</a><br><img class='Img_Bg' src='/static/uploads/images_markers/{{data_all_marker.Image_Upload1}}'></img>"); 
     {% endif %}
-
 
     {% if data_all_marker.Icon_Set == "Park" %}  
     var marker = L.marker([ {{ data_all_marker.Latitude }}, {{ data_all_marker.Longtitude }}], {icon: L.AwesomeMarkers.icon({icon: 'map', color: 'green', spin:false}) }).addTo(map);
@@ -104,7 +113,6 @@ marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Desc
 marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Description }} <a href='/view_point/{{ data_all_marker.id}}'>More info</a><br><img class='Img_Bg' src='/static/uploads/images_markers/{{data_all_marker.Image_Upload1}}'></img>");  
     {% endif %}
 
-
     {% if data_all_marker.Icon_Set == "Canteen" %}  
     var marker = L.marker([ {{ data_all_marker.Latitude }}, {{ data_all_marker.Longtitude }}], {icon: L.AwesomeMarkers.icon({icon: 'food', color: 'violet', spin:false}) }).addTo(map);
 marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Description }} <a href='/view_point/{{ data_all_marker.id}}'>More info</a><img class='Img_Bg' src='/static/uploads/images_markers/{{data_all_marker.Image_Upload1}}'></img>"); 
@@ -120,30 +128,21 @@ marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Desc
 marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Description }} <a href='/view_point/{{ data_all_marker.id}}'>More info</a><img class='Img_Bg' src='/static/uploads/images_markers/{{data_all_marker.Image_Upload1}}'></img>"); 
     {% endif %}
 
-
     {% if data_all_marker.Icon_Set == "Terminal" %}  
     var marker = L.marker([ {{ data_all_marker.Latitude }}, {{ data_all_marker.Longtitude }}], {icon: L.AwesomeMarkers.icon({icon: 'truck', color: 'darkpurple', spin:false}) }).addTo(map);
 marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Description }} <a href='/view_point/{{ data_all_marker.id}}'>More info</a><img class='Img_Bg' src='/static/uploads/images_markers/{{data_all_marker.Image_Upload1}}'></img>"); 
     {% endif %}
-  
 
     {% if data_all_marker.Icon_Set == "Coffe Shop" %}  
     var marker = L.marker([ {{ data_all_marker.Latitude }}, {{ data_all_marker.Longtitude }}], {icon: L.AwesomeMarkers.icon({icon: 'coffee', color: 'red', spin:false}) }).addTo(map);
 marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Description }} <a href='/view_point/{{ data_all_marker.id}}'>More info</a><img class='Img_Bg' src='/static/uploads/images_markers/{{data_all_marker.Image_Upload1}}'></img>"); 
     {% endif %}
 
-
     {% if data_all_marker.Icon_Set == "Restaurant" %}  
     var marker = L.marker([ {{ data_all_marker.Latitude }}, {{ data_all_marker.Longtitude }}], {icon: L.AwesomeMarkers.icon({icon: 'food', color: 'red', spin:false}) }).addTo(map);
 marker.bindPopup("<b>{{ data_all_marker.Title }}</b><br> {{ data_all_marker.Description }} <a href='/view_point/{{ data_all_marker.id}}'>More info</a><img class='Img_Bg' src='/static/uploads/images_markers/{{data_all_marker.Image_Upload1}}'></img>"); 
     {% endif %}
 
-
-
-
-    
-
-  
 {% endfor %}
 
 </script>

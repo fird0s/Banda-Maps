@@ -1,4 +1,3 @@
-
 #standart Python library
 import os, random, string, imghdr, base64
 from datetime import datetime
@@ -7,7 +6,7 @@ from datetime import datetime
 from flask import *
 bandamaps = Flask(__name__)
 
-#SQLAlchemy Module for Database collaboration
+#SQLAlchemy Module for Database collaboration in Flask
 from models import *
 from sqlalchemy.exc import *
 from sqlalchemy.orm.exc import NoResultFound
@@ -68,7 +67,6 @@ def add_point():
 def point_edit(route):
 	if  "user" not in session:
 		return redirect(url_for('singin'))
-
 	try:		
 		data_marker = session_db.query(Markers).filter_by(id = route).one()	 
 	except sqlalchemy.orm.exc.NoResultFound:
@@ -78,6 +76,21 @@ def point_edit(route):
 		if request.form["Judul"] and request.form["Latitude"] and request.form["Longtitude"] and request.form["Description"] and request.form["TypeIcon"] \
 		and request.form["Town"]:
 			marker_edit = session_db.query(Markers).filter_by(id = route).one()           
+			try:
+				marker_edit.Adder = session.get("user", None)  
+				marker_edit.Title = request.form["Judul"]
+				marker_edit.Latitude = request.form["Latitude"]		
+				marker_edit.Longtitude = request.form["Longtitude"]		
+				marker_edit.Description = request.form["Description"]
+				marker_edit.Location = request.form["Town"]
+				marker_edit.Icon_Set = request.form["TypeIcon"]
+				marker_edit.Last = datetime.now()
+		 	   	session_db.add(marker_edit)		
+		 	   	session_db.commit()	
+			except:
+		 		return "Error"		
+
+
 			if request.files["Image1"]:
 				file = request.files["Image1"]
 				if imghdr.what(file) == None:
@@ -99,21 +112,10 @@ def point_edit(route):
 			if request.form["Tag"]:
 	 	   		marker_edit.Tags = request.form["Tag"]	
 	 	   	else: 
-	 	   		marker_edit.Tags = "None"	
+	 	   		marker_edit.Tags = "None"
+	 	 
 				
-			try:
-				marker_edit.Adder = session.get("user", None)  
-				marker_edit.Title = request.form["Judul"]
-				marker_edit.Latitude = request.form["Latitude"]		
-				marker_edit.Longtitude = request.form["Longtitude"]		
-				marker_edit.Description = request.form["Description"]
-				marker_edit.Location = request.form["Town"]
-				marker_edit.Icon_Set = request.form["TypeIcon"]
-				marker_edit.Last = datetime.now()
-		 	   	session_db.add(marker_edit)		
-		 	   	session_db.commit()	
-	 	   	except:
-	 	   		return "Error"
+		
 
 	return render_template("point_edit.html", route=route, data_marker= data_marker)
 
@@ -295,7 +297,8 @@ def view_point(id):
 @bandamaps.route("/search/")
 def search():
 	if request.method == "GET":
-		
+		data_all_marker = session_db.query(Markers).all()
+
 		markers_title = []
 		markers_tag = []
 		
@@ -305,9 +308,11 @@ def search():
 		
 		else:
 			pass				
-	return render_template("search.html", markers_title=markers_title, markers_tag=markers_tag)
+	return render_template("search.html", markers_title=markers_title, markers_tag=markers_tag, data_all_marker=data_all_marker)
 
-
+@bandamaps.route("/display/<int:id>")
+def display(id):
+	return render_template("display.html")
 
 @bandamaps.route('/test', methods=["POST", "GET"])
 def test():
