@@ -1,4 +1,4 @@
 Banda-Maps
 ==========
 
-a map for plotting against the city of Banda Aceh, Indonesia, everyone  can add points, each point has a title, description, photo, latitude, longtitude
+A map create with Leaflet.js, Python Flask, and SQLAlchemy. Small project just for fun, and never deploy on production. HAHAHA
